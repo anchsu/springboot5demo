@@ -13,6 +13,7 @@ import com.example.layer.process.action.PersonAction;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 /**
  * https://www.youtube.com/watch?v=vksw3j0uOZo
@@ -60,7 +61,7 @@ public class PersonController {
 	}
 	
 	@GetMapping(value = "/test")
-	public Person test() {
+	public Flux<Person> test() {
 		System.out.println("test! ");
 		
 		// result empty stream
@@ -69,14 +70,20 @@ public class PersonController {
 		// first elemt
 		//return personAction.allPeople().next();
 
+		// somme des ages
 		//return personAction.allPeople().filter(person -> person.getAge() != null).reduce(0, (somme, person) -> somme + person.getAge());
+
+		// somme des ages
+//		return personAction.allPeople().filter(person -> person.getAge() != null).map(Person::getAge).reduce(0, (somme, age) -> somme + age);
 		
-//		return personAction.allPeople()
-//							.filter(person -> person.getAge() != null)					
-//							.map(Person::getAge)
-//							.reduce(0, (somme, age) -> somme + age);
-		
-		return personAction.allPeople().blockFirst();
-}
+		//return personAction.allPeople().blockFirst();
+
+        //return personAction.allPeople().elapsed();
+
+        return this.getAdults().mergeWith(this.getPerson())
+                .doOnNext(System.out::println)
+                .doAfterTerminate((() -> System.out.println("end")));
+
+    }
 		
 }

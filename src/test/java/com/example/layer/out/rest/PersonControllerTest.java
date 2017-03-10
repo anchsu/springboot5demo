@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.layer.in.entity.Person;
 
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -32,5 +33,10 @@ public class PersonControllerTest {
 		
 		Assert.assertEquals(true, result.block());
 	}
-	
+
+	@Test
+	public void test() {
+		final Disposable subscribe = this.personController.getAdults().subscribe();
+
+	}
 }
