@@ -14,6 +14,14 @@ import com.example.layer.process.action.PersonAction;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * https://www.youtube.com/watch?v=vksw3j0uOZo
+ * 
+ * http://rxmarbles.com/#amb
+ * 
+ * @author ex200
+ *
+ */
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -27,16 +35,16 @@ public class PersonController {
 		return personAction.allPeople();
 	}
 	
-	@GetMapping("/name")
+	@GetMapping(value="/name")
 	public Flux<String> getPersonNames() {
 		System.out.println("getPersonNames! ");
 		return personAction.allPeople().map(Person::getLastName);
 	}
 	
-	@GetMapping("/adults")
+	@GetMapping(value="/adults")
 	public Flux<Person> getAdults() {
 		System.out.println("getadults! ");
-		return personAction.allPeople().filter(person -> person.getAge() > 17);
+		return personAction.allPeople().filter(person -> person.getAge() != null && person.getAge() > 17);
 	}
 	
 	@GetMapping(value = "/{identifier}")
@@ -46,11 +54,29 @@ public class PersonController {
 	}
 	
 	@PostMapping()
-	public Mono<Void> savePerson(@RequestBody final Mono<Person> persons) {
+	public Mono<Void> savePerson(@RequestBody final Mono<Person> person) {
 		System.out.println("savePerson!");
-		return personAction.savePerson(persons);
+		return personAction.savePerson(person);
 	}
 	
-	
-	
+	@GetMapping(value = "/test")
+	public Person test() {
+		System.out.println("test! ");
+		
+		// result empty stream
+//		return personAction.allPeople().ignoreElements();
+
+		// first elemt
+		//return personAction.allPeople().next();
+
+		//return personAction.allPeople().filter(person -> person.getAge() != null).reduce(0, (somme, person) -> somme + person.getAge());
+		
+//		return personAction.allPeople()
+//							.filter(person -> person.getAge() != null)					
+//							.map(Person::getAge)
+//							.reduce(0, (somme, age) -> somme + age);
+		
+		return personAction.allPeople().blockFirst();
+}
+		
 }

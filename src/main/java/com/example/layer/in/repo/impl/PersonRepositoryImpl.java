@@ -21,8 +21,15 @@ public class PersonRepositoryImpl implements PersonRepository {
 		this.people.put(2, new Person(2, "Jane", "Doe", 36));
 		this.people.put(3, new Person(3, "Jane", "Doe", 28));
 		this.people.put(4, new Person(4, "Seb", "Devaux", 32));
-		this.people.put(4, new Person(5, "Virginie", "Devaux", 30));
-		this.people.put(5, new Person(5, "Layla", "Devaux", 1));
+		this.people.put(5, new Person(5, "Virginie", "Devaux", 30));
+		this.people.put(6, new Person(6, "Layla", "Devaux", 1));
+		
+		this.people.put(7, new Person(7, "Seb", "Z", 32));
+		this.people.put(8, new Person(8, "testAgeNull", "testAgeNull", null));
+		this.people.put(9, new Person(9, null, "testFirstNameNull", 50));
+		this.people.put(10, new Person(10, "testLastNameNull", null, 50));
+		this.people.put(11, new Person(11, "testLastNameEmpty", "", 50));
+		
 	}
 
 	@Override

@@ -8,18 +8,18 @@ public class Person {
 	
 	private String LastName;
 	
-	private int age;
+	private Integer age;
 
 	public Person() {};
 	
-	public Person(String firstName, String lastName, int age) {
+	public Person(String firstName, String lastName, Integer age) {
 		super();
 		this.firstName = firstName;
 		LastName = lastName;
 		this.age = age;
 	}
 
-	public Person(int identifier, String firstName, String lastName, int age) {
+	public Person(int identifier, String firstName, String lastName, Integer age) {
 		super();
 		this.identifier = identifier;
 		this.firstName = firstName;
@@ -51,11 +51,11 @@ public class Person {
 		LastName = lastName;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 	
