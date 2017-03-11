@@ -12,6 +12,7 @@ import com.example.layer.in.entity.Person;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.MonoProcessor;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,7 +37,12 @@ public class PersonControllerTest {
 
 	@Test
 	public void test() {
-		final Disposable subscribe = this.personController.getAdults().subscribe();
+		this.personController
+				.getAdults()
+				.awaitOnSubscribe()
+				.doOnEach(System.out::println)
+				.doOnComplete(() -> System.out.print("done"))
+				.subscribe();
 
 	}
 }
