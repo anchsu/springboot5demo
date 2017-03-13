@@ -1,25 +1,34 @@
 package com.example.layer.out.rest;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.layer.in.entity.Person;
 
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.MonoProcessor;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PersonControllerTest {
 	
-	@Autowired
+	//@Autowired
+	//private PersonController personController;
+	
+	@Mock
 	private PersonController personController;
+	
+	@Before
+	public void init() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void getPersonTest() {
@@ -43,6 +52,12 @@ public class PersonControllerTest {
 				.doOnEach(System.out::println)
 				.doOnComplete(() -> System.out.print("done"))
 				.subscribe();
+	}
+	
+	@Test
+	public void testMock() {
+		Mockito.when(this.personController.getAdults()).thenReturn(Flux.empty());
+		Assert.assertEquals(Flux.empty(), this.personController.getAdults());
 
 	}
 }

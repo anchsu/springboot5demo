@@ -1,9 +1,13 @@
 package com.example.layer.in.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public class Person {
+@Document
+public class PersonMongo {
 
-	private int identifier;
+	@Id
+	private String identifier;
 	
 	private String firstName;
 	
@@ -11,16 +15,16 @@ public class Person {
 	
 	private Integer age;
 
-	public Person() {};
+	public PersonMongo() {};
 	
-	public Person(String firstName, String lastName, Integer age) {
+	public PersonMongo(String firstName, String lastName, Integer age) {
 		super();
 		this.firstName = firstName;
 		LastName = lastName;
 		this.age = age;
 	}
 
-	public Person(int identifier, String firstName, String lastName, Integer age) {
+	public PersonMongo(String identifier, String firstName, String lastName, Integer age) {
 		super();
 		this.identifier = identifier;
 		this.firstName = firstName;
@@ -28,11 +32,11 @@ public class Person {
 		this.age = age;
 	}
 
-	public int getIdentifier() {
+	public String getIdentifier() {
 		return identifier;
 	}
 
-	public void setIdentifier(int identifier) {
+	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
 
